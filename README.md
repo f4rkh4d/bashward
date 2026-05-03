@@ -79,6 +79,16 @@ claude code passes a json payload describing the tool call on stdin. bashward re
 - v0.1 is macos-first. linux works but uses a non-deduplicating `cp -a`. expect `overlayfs`/`btrfs` paths in 0.2.
 - bashward never modifies your bash command. the hook always returns `continue`. think of it as a safety net, not a sandbox.
 
+## related crates
+
+other small rust pieces shipped alongside this one:
+
+- [`skill-scan`](https://github.com/f4rkh4d/skill-scan) local prompt-injection scanner for claude skills, MCP, AGENTS.md
+- [`pluvgo`](https://github.com/f4rkh4d/pluvgo) fast neovim plugin manager, single rust binary, no neovim required to install
+- [`mlkem-rs`](https://github.com/f4rkh4d/mlkem-rs) FIPS 203 ML-KEM (post-quantum kem) in pure rust
+- [`mlkem-tls`](https://github.com/f4rkh4d/mlkem-tls) X25519MLKEM768/1024 hybrid kem per draft-ietf-tls-ecdhe-mlkem
+- [`skl`](https://github.com/f4rkh4d/skl) package manager for AI agent skills
+
 ## license
 
 dual-licensed under MIT or Apache-2.0, at your option.
