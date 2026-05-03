@@ -1,0 +1,28 @@
+[package]
+name = "bashward"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "checkpoint and rewind for bash side-effects in claude code. /rewind handles file edits; bashward handles the bash channel /rewind cannot see."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/f4rkh4d/bashward"
+readme = "README.md"
+keywords = ["claude-code", "claude", "ai-agents", "snapshot", "cli"]
+categories = ["command-line-utilities", "development-tools"]
+
+[[bin]]
+name = "bashward"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "serde", "std"] }
+walkdir = "2"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true
