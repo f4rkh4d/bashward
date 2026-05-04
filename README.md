@@ -3,6 +3,10 @@
 checkpoint and rewind for **bash side-effects** in claude code. fills the gap claude code's own `/rewind` does not cover.
 
 [![crates.io](https://img.shields.io/crates/v/bashward.svg)](https://crates.io/crates/bashward)
+[![docs.rs](https://img.shields.io/docsrs/bashward)](https://docs.rs/bashward)
+[![downloads](https://img.shields.io/crates/d/bashward.svg)](https://crates.io/crates/bashward)
+[![ci](https://github.com/f4rkh4d/bashward/actions/workflows/ci.yml/badge.svg)](https://github.com/f4rkh4d/bashward/actions)
+[![msrv](https://img.shields.io/badge/msrv-1.74-blue.svg)](#)
 [![license](https://img.shields.io/crates/l/bashward.svg)](#license)
 
 ## the gap
