@@ -26,12 +26,20 @@ rewinding transaction 000018ac1786 (1 path(s))
 
 ## install
 
+precompiled binary, no rust toolchain required:
+
 ```sh
-cargo install bashward
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/f4rkh4d/bashward/releases/latest/download/bashward-installer.sh | sh
 bashward install                   # writes the PreToolUse hook into ~/.claude/settings.json
 ```
 
-remove with `bashward uninstall`. it is idempotent in both directions.
+or via cargo, if you already have the toolchain:
+
+```sh
+cargo install bashward
+```
+
+binaries ship for `aarch64-apple-darwin`, `x86_64-apple-darwin`, `aarch64-unknown-linux-gnu`, `x86_64-unknown-linux-gnu`, and `x86_64-pc-windows-msvc`. remove with `bashward uninstall`. idempotent in both directions.
 
 ## what it does, exactly
 
