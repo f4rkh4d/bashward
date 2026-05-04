@@ -75,6 +75,10 @@ enum Cmd {
     Prebash,
     /// print resolved paths and a quick health check
     Doctor,
+    /// print the full content of one transaction: timestamp, kind, the
+    /// bash command that triggered the snapshot (if any), and the list
+    /// of paths covered. useful before running `bashward rewind`.
+    Show { id: String },
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -494,6 +498,37 @@ fn cmd_snap(paths: Vec<PathBuf>, label: Option<String>) -> Result<()> {
     Ok(())
 }
 
+fn cmd_show(id: String) -> Result<()> {
+    let txs = read_transactions()?;
+    let matches: Vec<&Transaction> = txs.iter().filter(|t| t.id.starts_with(&id)).collect();
+    if matches.is_empty() {
+        anyhow::bail!("no transaction starting with {id}");
+    }
+    if matches.len() > 1 {
+        anyhow::bail!(
+            "ambiguous prefix {id}, matches {} transactions",
+            matches.len()
+        );
+    }
+    let t = matches[0];
+    let local: DateTime<Local> = t.timestamp.with_timezone(&Local);
+    println!("id        {}", t.id);
+    println!("timestamp {}", local.format("%Y-%m-%d %H:%M:%S %Z"));
+    println!("kind      {}", t.kind);
+    if let Some(label) = &t.label {
+        println!("label     {label}");
+    }
+    if let Some(cmd) = &t.cmd {
+        println!("command   {cmd}");
+    }
+    println!("paths     {}", t.snapshots.len());
+    for entry in &t.snapshots {
+        let exists = if entry.snap.exists() { "ok" } else { "missing" };
+        println!("  {:>8}  {}", exists, entry.src.display());
+    }
+    Ok(())
+}
+
 fn cmd_list(limit: usize) -> Result<()> {
     let txs = read_transactions()?;
     let n = txs.len();
@@ -645,6 +680,7 @@ fn main() -> Result<()> {
         Cmd::Prune { days } => cmd_prune(days),
         Cmd::Prebash => cmd_prebash(),
         Cmd::Doctor => cmd_doctor(),
+        Cmd::Show { id } => cmd_show(id),
     }
 }
 
