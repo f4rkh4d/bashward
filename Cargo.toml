@@ -1,6 +1,6 @@
 [package]
 name = "bashward"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.74"
 description = "checkpoint and rewind for bash side-effects in claude code. /rewind handles file edits; bashward handles the bash channel /rewind cannot see."
